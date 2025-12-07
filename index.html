@@ -5,47 +5,36 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>VSPORTS | Free Fire Tournament</title>
 
-  <!-- Icons & Fonts -->
-  <link
-    rel="stylesheet"
-    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
-  />
-  <link
-    href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Exo+2:wght@300;400;600&display=swap"
-    rel="stylesheet"
-  />
+  <!-- Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
-  <!-- Three.js for 3D background -->
+  <!-- Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Exo+2:wght@300;400;600&display=swap" rel="stylesheet">
+
+  <!-- Three.js -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
 
   <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
-
+    * { margin: 0; padding: 0; box-sizing: border-box; }
     body {
-      font-family: "Exo 2", sans-serif;
+      font-family: 'Exo 2', sans-serif;
       background-color: #0a0a0f;
       color: #e0e0ff;
       overflow-x: hidden;
       line-height: 1.6;
     }
 
-    /* 3D Background */
+    /* Background Canvas */
     #bg-canvas {
       position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
       z-index: -1;
     }
 
     .container {
       max-width: 1200px;
-      margin: 0 auto;
+      margin: auto;
       padding: 0 20px;
       position: relative;
       z-index: 1;
@@ -56,620 +45,200 @@
       display: flex;
       justify-content: space-between;
       align-items: center;
-      border-bottom: 1px solid rgba(0, 150, 255, 0.2);
-      position: relative;
+      border-bottom: 1px solid rgba(0,150,255,0.2);
     }
 
     .logo {
-      font-family: "Orbitron", sans-serif;
+      font-family: 'Orbitron', sans-serif;
       font-size: 2.5rem;
       font-weight: 900;
       background: linear-gradient(90deg, #00a8ff, #00ffcc);
       -webkit-background-clip: text;
-      background-clip: text;
       color: transparent;
-      text-shadow: 0 0 15px rgba(0, 168, 255, 0.5);
-      letter-spacing: 2px;
+      text-shadow: 0 0 15px rgba(0,168,255,0.5);
     }
-
-    .logo span {
-      color: #ff0055;
-    }
+    .logo span { color: #ff0055; }
 
     .tournament-tag {
       background: linear-gradient(90deg, #ff0055, #ff5500);
       padding: 8px 20px;
       border-radius: 30px;
-      font-family: "Orbitron", sans-serif;
+      font-family: 'Orbitron', sans-serif;
       font-weight: 700;
-      font-size: 1.2rem;
-      box-shadow: 0 0 20px rgba(255, 0, 85, 0.5);
-      animation: pulse 2s infinite;
+      box-shadow: 0 0 20px rgba(255,0,85,0.4);
       white-space: nowrap;
     }
 
-    @keyframes pulse {
-      0% {
-        box-shadow: 0 0 20px rgba(255, 0, 85, 0.5);
-      }
-      50% {
-        box-shadow: 0 0 30px rgba(255, 0, 85, 0.8);
-      }
-      100% {
-        box-shadow: 0 0 20px rgba(255, 0, 85, 0.5);
-      }
-    }
-
     .hero {
-      padding: 60px 0;
       text-align: center;
-      position: relative;
+      padding: 60px 0;
     }
 
     .hero h1 {
-      font-family: "Orbitron", sans-serif;
+      font-family: 'Orbitron', sans-serif;
       font-size: 3.5rem;
-      margin-bottom: 20px;
       background: linear-gradient(90deg, #00ffcc, #0099ff);
       -webkit-background-clip: text;
-      background-clip: text;
       color: transparent;
-      text-shadow: 0 0 20px rgba(0, 255, 204, 0.3);
+      text-shadow: 0 0 20px rgba(0,255,204,0.4);
     }
 
     .hero p {
       font-size: 1.2rem;
       max-width: 800px;
-      margin: 0 auto 40px;
+      margin: auto;
       color: #a0a0ff;
     }
 
-    .content-wrapper {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 40px;
-      margin-bottom: 60px;
-    }
-
-    @media (max-width: 900px) {
-      header {
-        flex-direction: column;
-        align-items: flex-start;
-        gap: 10px;
-      }
-
-      .content-wrapper {
-        grid-template-columns: 1fr;
-      }
-
-      .hero h1 {
-        font-size: 2.4rem;
-      }
-    }
-
-    .instructions,
-    .registration {
-      background: rgba(10, 15, 30, 0.8);
+    .instructions {
+      background: rgba(10,15,30,0.8);
       border-radius: 15px;
       padding: 30px;
-      border: 1px solid rgba(0, 150, 255, 0.2);
-      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
-      backdrop-filter: blur(10px);
-      transition: transform 0.3s, box-shadow 0.3s;
-    }
-
-    .instructions:hover,
-    .registration:hover {
-      transform: translateY(-5px);
-      box-shadow: 0 15px 35px rgba(0, 100, 255, 0.2);
+      border: 1px solid rgba(0,150,255,0.2);
+      margin-bottom: 40px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.3);
     }
 
     .section-title {
-      font-family: "Orbitron", sans-serif;
+      font-family: 'Orbitron', sans-serif;
       font-size: 1.8rem;
-      margin-bottom: 25px;
+      margin-bottom: 20px;
       color: #00ccff;
-      display: flex;
-      align-items: center;
-      gap: 10px;
-    }
-
-    .section-title i {
-      color: #ff0055;
-    }
-
-    .instructions-list {
-      list-style: none;
     }
 
     .instructions-list li {
       padding: 15px 0;
-      border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+      border-bottom: 1px solid rgba(255,255,255,0.05);
       display: flex;
-      align-items: flex-start;
-      gap: 15px;
+      gap: 10px;
     }
-
     .instructions-list li:last-child {
       border-bottom: none;
     }
+    .instructions-list i { color: #00ffcc; }
 
-    .instructions-list li i {
-      color: #00ffcc;
-      margin-top: 3px;
-    }
-
-    .form-group {
-      margin-bottom: 25px;
-    }
-
-    .form-group label {
+    /* REGISTER BUTTON */
+    .register-btn {
       display: block;
-      margin-bottom: 8px;
-      font-weight: 600;
-      color: #a0a0ff;
-    }
-
-    .form-control {
       width: 100%;
-      padding: 15px;
-      background: rgba(5, 10, 25, 0.7);
-      border: 1px solid rgba(0, 150, 255, 0.3);
-      border-radius: 8px;
-      color: #ffffff;
-      font-size: 1rem;
-      transition: all 0.3s;
-    }
-
-    .form-control:focus {
-      outline: none;
-      border-color: #00a8ff;
-      box-shadow: 0 0 15px rgba(0, 168, 255, 0.3);
-    }
-
-    .submit-btn {
+      margin: 40px auto;
+      text-align: center;
+      padding: 18px;
+      font-size: 1.5rem;
+      font-family: 'Orbitron', sans-serif;
+      color: #fff;
       background: linear-gradient(90deg, #ff0055, #ff5500);
-      color: white;
-      border: none;
-      padding: 18px 40px;
-      font-size: 1.2rem;
-      font-family: "Orbitron", sans-serif;
-      font-weight: 700;
-      border-radius: 10px;
-      cursor: pointer;
-      width: 100%;
+      border-radius: 12px;
+      text-decoration: none;
       letter-spacing: 1px;
-      transition: all 0.3s;
-      box-shadow: 0 5px 15px rgba(255, 0, 85, 0.3);
+      cursor: pointer;
+      box-shadow: 0 8px 20px rgba(255,0,85,0.3);
+      transition: 0.3s;
     }
-
-    .submit-btn:hover {
-      background: linear-gradient(90deg, #ff0040, #ff4400);
-      box-shadow: 0 8px 20px rgba(255, 0, 85, 0.5);
-      transform: translateY(-3px);
-    }
-
-    .registered-players {
-      margin-top: 40px;
-      background: rgba(10, 15, 30, 0.8);
-      border-radius: 15px;
-      padding: 30px;
-      border: 1px solid rgba(0, 150, 255, 0.2);
-      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
-      backdrop-filter: blur(10px);
-    }
-
-    .players-title {
-      font-family: "Orbitron", sans-serif;
-      font-size: 1.8rem;
-      margin-bottom: 25px;
-      color: #00ffcc;
-      display: flex;
-      align-items: center;
-      gap: 10px;
-    }
-
-    .players-table {
-      width: 100%;
-      border-collapse: collapse;
-    }
-
-    .players-table th {
-      background: rgba(0, 50, 100, 0.5);
-      padding: 15px;
-      text-align: left;
-      font-family: "Orbitron", sans-serif;
-      color: #00a8ff;
-      border-bottom: 2px solid rgba(0, 168, 255, 0.3);
-    }
-
-    .players-table td {
-      padding: 15px;
-      border-bottom: 1px solid rgba(255, 255, 255, 0.05);
-    }
-
-    .players-table tr:hover {
-      background: rgba(0, 100, 200, 0.1);
+    .register-btn:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 12px 25px rgba(255,0,85,0.6);
+      background: linear-gradient(90deg, #ff0040, #ff3300);
     }
 
     footer {
       text-align: center;
-      padding: 30px 0;
-      margin-top: 60px;
-      border-top: 1px solid rgba(0, 150, 255, 0.2);
+      padding: 40px 0;
+      border-top: 1px solid rgba(0,150,255,0.2);
       color: #8080cc;
-      font-size: 0.9rem;
-    }
-
-    .glow-text {
-      text-shadow: 0 0 10px rgba(0, 200, 255, 0.7);
-    }
-
-    .pulse {
-      animation: textPulse 2s infinite;
-    }
-
-    @keyframes textPulse {
-      0% {
-        opacity: 0.8;
-      }
-      50% {
-        opacity: 1;
-      }
-      100% {
-        opacity: 0.8;
-      }
-    }
-
-    /* Scrollbar styling */
-    ::-webkit-scrollbar {
-      width: 10px;
-    }
-
-    ::-webkit-scrollbar-track {
-      background: rgba(5, 10, 25, 0.5);
-    }
-
-    ::-webkit-scrollbar-thumb {
-      background: linear-gradient(180deg, #00a8ff, #ff0055);
-      border-radius: 5px;
+      margin-top: 40px;
     }
   </style>
 </head>
 <body>
-  <!-- 3D Background Canvas -->
-  <canvas id="bg-canvas"></canvas>
 
-  <div class="container">
-    <header>
-      <div class="logo">V<span>SPORTS</span></div>
-      <div class="tournament-tag">FREE FIRE TOURNAMENT</div>
-    </header>
+<canvas id="bg-canvas"></canvas>
 
-    <section class="hero">
-      <h1 class="glow-text pulse">DOMINATE THE BATTLEGROUND</h1>
-      <p>
-        Register now for the ultimate Free Fire tournament with a massive prize
-        pool of <b>1 KILL = ₹10 and ₹100 for BOOYAH</b>! Show off your skills,
-        compete with the best, and claim your glory!
-      </p>
-    </section>
+<div class="container">
+  <header>
+    <div class="logo">V<span>SPORTS</span></div>
+    <div class="tournament-tag">FREE FIRE TOURNAMENT</div>
+  </header>
 
-    <div class="content-wrapper">
-      <section class="instructions">
-        <h2 class="section-title">
-          <i class="fas fa-scroll"></i> TOURNAMENT INSTRUCTIONS
-        </h2>
-        <ul class="instructions-list">
-          <li>
-            <i class="fas fa-crosshairs"></i>
-            <span><strong>Format:</strong> Custom room Free Fire matches.</span>
-          </li>
-          <li>
-            <i class="fas fa-calendar-alt"></i>
-            <span
-              ><strong>Dates:</strong> Registration closes soon. Exact match
-              timings will be shared on WhatsApp / Gmail.</span
-            >
-          </li>
-          <li>
-            <i class="fas fa-trophy"></i>
-            <span
-              ><strong>Prize:</strong> 1 kill = ₹10, BOOYAH = ₹100 (per
-              match).</span
-            >
-          </li>
-          <li>
-            <i class="fas fa-users"></i>
-            <span
-              ><strong>Players:</strong> Enter correct Free Fire ID & in-game
-              name for room entry.</span
-            >
-          </li>
-          <li>
-            <i class="fas fa-ban"></i>
-            <span
-              ><strong>Rules:</strong> No hacks, emulator (if banned by host),
-              or unfair gameplay. Instant ban.</span
-            >
-          </li>
-          <li>
-            <i class="fas fa-headset"></i>
-            <span
-              ><strong>Communication:</strong> Room ID & password will be sent
-              to your WhatsApp / Gmail.</span
-            >
-          </li>
-          <li>
-            <i class="fas fa-exclamation-triangle"></i>
-            <span
-              ><strong>Important:</strong> Organizer decision is final in any
-              dispute.</span
-            >
-          </li>
-        </ul>
-      </section>
+  <section class="hero">
+    <h1>DOMINATE THE BATTLEGROUND</h1>
+    <p>Join the ultimate Free Fire & pubg tournament — 1 KILL = ₹10 and BOOYAH = ₹100.
+       Compete, dominate and win big!</p>
+  </section>
 
-      <section class="registration">
-        <h2 class="section-title">
-          <i class="fas fa-user-plus"></i> PLAYER REGISTRATION
-        </h2>
-        <form id="registrationForm">
-          <div class="form-group">
-            <label for="playerName">
-              <i class="fas fa-user"></i> PLAYER NAME
-            </label>
-            <input
-              type="text"
-              id="playerName"
-              class="form-control"
-              placeholder="Enter your in-game name"
-              required
-            />
-          </div>
+  <section class="instructions">
+    <h2 class="section-title"><i class="fas fa-scroll"></i> TOURNAMENT INSTRUCTIONS</h2>
 
-          <div class="form-group">
-            <label for="freeFireID">
-              <i class="fas fa-id-card"></i> FREE FIRE ID
-            </label>
-            <input
-              type="text"
-              id="freeFireID"
-              class="form-control"
-              placeholder="Enter your Free Fire ID"
-              required
-            />
-          </div>
+    <ul class="instructions-list">
+      <li><i class="fas fa-crosshairs"></i> Custom Free Fire matches with fair gameplay.</li>
+      <li><i class="fas fa-calendar-alt"></i> Match timings will be shared on WhatsApp/Gmail.</li>
+      <li><i class="fas fa-trophy"></i> Prize: 1 KILL = ₹10, BOOYAH = ₹100.</li>
+      <li><i class="fas fa-id-card"></i> Enter correct Free Fire ID in registration form.</li>
+      <li><i class="fas fa-ban"></i> No hacks, scripts, or unfair gameplay.</li>
+      <li><i class="fas fa-headset"></i> Room ID & password shared before the match.</li>
+    </ul>
+  </section>
 
-          <div class="form-group">
-            <label for="playerMobile">
-              <i class="fas fa-mobile-alt"></i> MOBILE NUMBER
-            </label>
-            <input
-              type="tel"
-              id="playerMobile"
-              class="form-control"
-              placeholder="Enter your mobile number"
-              required
-            />
-          </div>
+  <!-- NEW BUTTON -->
+  <a class="register-btn" href="https://example.com" target="_blank">
+    CLICK HERE TO REGISTER
+  </a>
 
-          <div class="form-group">
-            <label for="playerEmail">
-              <i class="fas fa-envelope"></i> GMAIL ADDRESS
-            </label>
-            <input
-              type="email"
-              id="playerEmail"
-              class="form-control"
-              placeholder="Enter your Gmail address"
-              required
-            />
-          </div>
+  <footer>
+    <p>© 2025 VSPORTS ESPORTS — All Rights Reserved. 
+    for more details contact 8328648371 jani basha</p>
+  </footer>
+</div>
 
-          <div class="form-group">
-            <label for="teamName">
-              <i class="fas fa-users"></i> TEAM NAME (Optional)
-            </label>
-            <input
-              type="text"
-              id="teamName"
-              class="form-control"
-              placeholder="Enter your team name if applicable"
-            />
-          </div>
+<script>
+  // 3D Background
+  let scene, camera, renderer, particles;
 
-          <button type="submit" class="submit-btn">
-            <i class="fas fa-paper-plane"></i> REGISTER FOR TOURNAMENT
-          </button>
-        </form>
-      </section>
-    </div>
+  function init3DBackground() {
+    const canvas = document.getElementById("bg-canvas");
+    scene = new THREE.Scene();
+    camera = new THREE.PerspectiveCamera(
+      75, window.innerWidth / window.innerHeight, 0.1, 1000
+    );
+    renderer = new THREE.WebGLRenderer({ canvas, alpha: true });
+    renderer.setSize(window.innerWidth, window.innerHeight);
 
-    <section class="registered-players">
-      <h2 class="players-title">
-        <i class="fas fa-list-ol"></i> RECENTLY REGISTERED PLAYERS
-      </h2>
-      <table class="players-table">
-        <thead>
-          <tr>
-            <th>Player Name</th>
-            <th>Free Fire ID</th>
-            <th>Team</th>
-          </tr>
-        </thead>
-        <tbody id="playersList">
-          <!-- Players will be added here dynamically -->
-        </tbody>
-      </table>
-    </section>
+    const particleCount = 1500;
+    const geometry = new THREE.BufferGeometry();
+    const positions = new Float32Array(particleCount * 3);
 
-    <footer>
-      <p>&copy; 2025 VSPORTS ESPORTS. ALL RIGHTS RESERVED.</p>
-      <p>
-        This tournament is not affiliated with Garena Free Fire. Free Fire is a
-        registered trademark of Garena International.
-      </p>
-      <p>Contact: vsportsff@gmail.com</p>
-    </footer>
-  </div>
-
-  <script>
-    // 3D Background with Three.js
-    let scene, camera, renderer, particles;
-
-    function init3DBackground() {
-      const canvas = document.getElementById("bg-canvas");
-      scene = new THREE.Scene();
-      camera = new THREE.PerspectiveCamera(
-        75,
-        window.innerWidth / window.innerHeight,
-        0.1,
-        1000
-      );
-      renderer = new THREE.WebGLRenderer({
-        canvas: canvas,
-        alpha: true,
-      });
-      renderer.setSize(window.innerWidth, window.innerHeight);
-
-      const particleCount = 1500;
-      const geometry = new THREE.BufferGeometry();
-      const positions = new Float32Array(particleCount * 3);
-      const colors = new Float32Array(particleCount * 3);
-
-      for (let i = 0; i < particleCount * 3; i += 3) {
-        positions[i] = (Math.random() - 0.5) * 100;
-        positions[i + 1] = (Math.random() - 0.5) * 100;
-        positions[i + 2] = (Math.random() - 0.5) * 100;
-
-        colors[i] = Math.random() * 0.5 + 0.1;
-        colors[i + 1] = Math.random() * 0.7 + 0.3;
-        colors[i + 2] = Math.random() * 0.5 + 0.2;
-      }
-
-      geometry.setAttribute(
-        "position",
-        new THREE.BufferAttribute(positions, 3)
-      );
-      geometry.setAttribute("color", new THREE.BufferAttribute(colors, 3));
-
-      const material = new THREE.PointsMaterial({
-        size: 0.1,
-        vertexColors: true,
-        transparent: true,
-        opacity: 0.8,
-      });
-
-      particles = new THREE.Points(geometry, material);
-      scene.add(particles);
-
-      camera.position.z = 5;
-
-      window.addEventListener("resize", () => {
-        camera.aspect = window.innerWidth / window.innerHeight;
-        camera.updateProjectionMatrix();
-        renderer.setSize(window.innerWidth, window.innerHeight);
-      });
-
-      animateParticles();
+    for (let i = 0; i < particleCount * 3; i += 3) {
+      positions[i] = (Math.random() - 0.5) * 100;
+      positions[i+1] = (Math.random() - 0.5) * 100;
+      positions[i+2] = (Math.random() - 0.5) * 100;
     }
 
-    function animateParticles() {
-      requestAnimationFrame(animateParticles);
-      if (particles) {
-        particles.rotation.x += 0.0005;
-        particles.rotation.y += 0.001;
-      }
-      renderer.render(scene, camera);
-    }
+    geometry.setAttribute("position", new THREE.BufferAttribute(positions, 3));
 
-    // Form submission and player registration
-    document
-      .getElementById("registrationForm")
-      .addEventListener("submit", function (e) {
-        e.preventDefault();
-
-        const playerName = document.getElementById("playerName").value.trim();
-        const freeFireID = document.getElementById("freeFireID").value.trim();
-        const playerMobile =
-          document.getElementById("playerMobile").value.trim();
-        const playerEmail =
-          document.getElementById("playerEmail").value.trim();
-        const teamName =
-          document.getElementById("teamName").value.trim() || "Solo";
-
-        if (!playerName || !freeFireID || !playerMobile || !playerEmail) {
-          alert("Please fill all required fields.");
-          return;
-        }
-
-        // Add player to the table
-        const playersList = document.getElementById("playersList");
-        const newRow = document.createElement("tr");
-        newRow.innerHTML = `
-          <td>${playerName}</td>
-          <td>${freeFireID}</td>
-          <td>${teamName}</td>
-        `;
-        playersList.prepend(newRow);
-
-        alert(
-          `Registration successful! Welcome to the tournament, ${playerName}.`
-        );
-
-        this.reset();
-
-        const submitBtn = document.querySelector(".submit-btn");
-        submitBtn.innerHTML =
-          '<i class="fas fa-check"></i> REGISTRATION SUCCESSFUL!';
-        submitBtn.style.background =
-          "linear-gradient(90deg, #00cc66, #00ff99)";
-
-        setTimeout(() => {
-          submitBtn.innerHTML =
-            '<i class="fas fa-paper-plane"></i> REGISTER FOR TOURNAMENT';
-          submitBtn.style.background =
-            "linear-gradient(90deg, #ff0055, #ff5500)";
-        }, 3000);
-      });
-
-    // Example players
-    const examplePlayers = [
-      { name: "GHOST", id: "1122334455", team: "Phantom Wolves" },
-      { name: "VENOM", id: "2233445566", team: "Toxic Legends" },
-      { name: "SPECTRE", id: "3344556677", team: "Shadow Strike" },
-      { name: "BLAZE", id: "4455667788", team: "Inferno Squad" },
-      { name: "FROST", id: "5566778899", team: "Arctic Assault" },
-    ];
-
-    function populateExamplePlayers() {
-      const playersList = document.getElementById("playersList");
-      examplePlayers.forEach((player) => {
-        const row = document.createElement("tr");
-        row.innerHTML = `
-          <td>${player.name}</td>
-          <td>${player.id}</td>
-          <td>${player.team}</td>
-        `;
-        playersList.appendChild(row);
-      });
-    }
-
-    window.addEventListener("DOMContentLoaded", () => {
-      init3DBackground();
-      populateExamplePlayers();
-
-      const inputs = document.querySelectorAll(".form-control");
-      inputs.forEach((input) => {
-        input.addEventListener("focus", function () {
-          this.parentElement.classList.add("glow-text");
-        });
-        input.addEventListener("blur", function () {
-          this.parentElement.classList.remove("glow-text");
-        });
-      });
+    const material = new THREE.PointsMaterial({
+      size: 0.15,
+      color: 0x00ccff,
+      transparent: true,
+      opacity: 0.8,
     });
-  </script>
+
+    particles = new THREE.Points(geometry, material);
+    scene.add(particles);
+
+    camera.position.z = 5;
+
+    animateParticles();
+  }
+
+  function animateParticles() {
+    requestAnimationFrame(animateParticles);
+    particles.rotation.x += 0.0005;
+    particles.rotation.y += 0.001;
+    renderer.render(scene, camera);
+  }
+
+  window.onload = init3DBackground;
+</script>
+
 </body>
 </html>
